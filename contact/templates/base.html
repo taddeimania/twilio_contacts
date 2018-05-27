@@ -5,6 +5,17 @@
     <title>Twilio SMS Contact Book</title>
   </head>
   <body>
+
+    <!-- header -->
+    <p>
+      {% if not user.is_authenticated %}
+        <a href="{% url 'register_view' %}">Signup</a>
+        <a href="{% url 'login' %}">Login</a>
+      {% else %}
+        <a href="{% url 'register_view' %}">Contacts</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% endif %}
+    </p>
     {% block body %}
     {% endblock body %}
   </body>
