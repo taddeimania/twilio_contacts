@@ -8,6 +8,10 @@ class Contact(models.Model):
     number = models.CharField(max_length=20)
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
+    @property
+    def full_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
 
 class Message(models.Model):
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
