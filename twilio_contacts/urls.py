@@ -14,11 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+from django.urls import path, include
 
 from contact.views import IndexView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name="index_view"),
+    path('register/', CreateView.as_view(
+        template_name='register.html',
+        form_class=UserCreationForm,
+        success_url='/'
+    ), name="register_view"),
+    path('accounts/', include('django.contrib.auth.urls')),
+
 ]
