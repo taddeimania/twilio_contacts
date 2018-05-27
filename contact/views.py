@@ -21,6 +21,7 @@ class IndexView(TemplateView):
 class ContactCreateView(CreateView):
     form_class = ContactForm
     success_url = '/'
+    template_name = "contact/contact_create.html"
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 
@@ -5,8 +6,12 @@ from django.urls import reverse
 class Contact(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    number = models.CharField(max_length=20)
+    number = models.CharField(max_length=20, validators=[RegexValidator(regex=r'^\d{10}$')])
     owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
 
     @property
     def full_name(self):

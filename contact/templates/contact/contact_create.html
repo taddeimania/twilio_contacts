@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br/>
+
+<form action="{% url 'contact_create_view' %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p}}
+  <input type="submit" value="Add New Contact" class="btn btn-primary"/>
+</form>
+
+{% endblock body %}
