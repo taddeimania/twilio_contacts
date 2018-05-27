@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
 from .models import Contact
-from .forms import ContactForm
+from .forms import ContactForm, MessageForm
 
 
 class IndexView(TemplateView):
@@ -29,3 +29,16 @@ class ContactCreateView(CreateView):
 
 class ContactDetailView(DetailView):
     model = Contact
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['new_message_form'] = MessageForm()
+        return context
+
+
+class MessageCreateView(CreateView):
+    form_class = MessageForm
+
+    def form_valid(self, form):
+        form.instance.contact = Contact.objects.get(id=self.request.POST.get('contact_id', None))
+        return super().form_valid(form)

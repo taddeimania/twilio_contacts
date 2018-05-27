@@ -2,6 +2,27 @@
 
 {% block body %}
 
-<h1>{{ object.name }}</h1>
-<h2>{{ object.number }}</h2>
+<a href="{% url 'index_view' %}">Go Back</a>
+
+<h1>Contact: {{ object.name }}</h1>
+<h2>Number: {{ object.number }}</h2>
+
+<h3>Messages: </h3>
+<ul>
+{% for message in object.message_set.all %}
+  <li>
+    {{ message.body }} ( {{ message.created }} )
+  </li>
+{% endfor %}
+</ul>
+
+<h3>Send {{ object.name }} a message</h3>
+
+<form action="{% url 'message_create_view' object.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="contact_id" value="{{ object.id }}">
+  {{ new_message_form.as_p }}
+  <input type="submit" value="Message" />
+</form>
+
 {% endblock body %}
