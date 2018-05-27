@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
 
 from .models import Contact
+from .forms import ContactForm
 
 
 class IndexView(TemplateView):
@@ -11,4 +13,14 @@ class IndexView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         if self.request.user.is_authenticated:
             context['contacts'] = Contact.objects.filter(owner=self.request.user)
+            context['new_contact_form'] = ContactForm()
         return context
+
+
+class ContactView(CreateView):
+    form_class = ContactForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)

@@ -5,8 +5,30 @@
   <p>Welcome to your SMS Contact book.</p>
 
   <h3>Existing Contacts</h3>
+  <table width='100%'>
+    <tr>
+      <th>Name</th>
+      <th>Phone Number</th>
+    </tr>
+  {% for contact in contacts %}
+    <tr>
+      <td>{{ contact.name }}</td>
+      <td>{{ contact.number }}</td>
+    </tr>
+  {% empty %}
+    <tr>
+      <td colspan=2> It doesn't look like you have any contacts. You should add one. </td>
+    </tr>
+  {% endfor %}
+  </table>
+
 
   <h3>Add a new Contact</h3>
+  <form action="{% url 'contact_view' %}" method="POST">
+    {% csrf_token %}
+    {{ new_contact_form.as_p }}
+    <input type="submit" value="Add New Contact" />
+  </form>
 
 {% else %}
   <p>It doesn't look like you're logged in. Maybe you should sign up for an account or login?</p>

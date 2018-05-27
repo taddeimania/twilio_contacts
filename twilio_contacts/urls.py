@@ -18,7 +18,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from django.urls import path, include
 
-from contact.views import IndexView
+from contact.views import IndexView, ContactView
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
         form_class=UserCreationForm,
         success_url='/'
     ), name="register_view"),
+    path('contact/', ContactView.as_view(), name='contact_view'),
     path('accounts/', include('django.contrib.auth.urls')),
 
 ]
