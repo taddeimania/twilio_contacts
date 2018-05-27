@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br/>
 
 {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
@@ -11,10 +12,6 @@
 
   {{ form.as_p }}
 
-  <input type="submit" value="login" />
+  <input type="submit" value="login" class="btn btn-primary"/>
 </form>
-
-<p>
-  <a href="{% url 'password_reset' %}">Lost password?</a>
-</p>
 {% endblock body %}

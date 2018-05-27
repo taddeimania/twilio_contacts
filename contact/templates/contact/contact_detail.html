@@ -2,9 +2,12 @@
 
 {% block body %}
 
-<a href="{% url 'index_view' %}">Go Back</a>
+<br/>
+<p>
+  <a href="{% url 'index_view' %}" class="btn btn-secondary">Go Back</a>
+</p>
 
-<h1>Contact: {{ object.name }}</h1>
+<h1>Contact: {{ object.full_name }}</h1>
 <h2>Number: {{ object.number }}</h2>
 
 <h3>Messages: </h3>
@@ -20,13 +23,20 @@
 {% endfor %}
 </ul>
 
-<h3>Send {{ object.name }} a message</h3>
+<h3>Send {{ object.first_name }} a message</h3>
 
 <form action="{% url 'message_create_view' object.pk %}" method="POST">
   {% csrf_token %}
   <input type="hidden" name="contact_id" value="{{ object.id }}">
-  {{ new_message_form.as_p }}
-  <input type="submit" value="Message" />
+  {% for field in new_message_form %}
+    <p>
+      {{ field }}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </p>
+  {% endfor %}
+  <input type="submit" value="Message" class="btn btn-primary" />
 </form>
 
 {% endblock body %}

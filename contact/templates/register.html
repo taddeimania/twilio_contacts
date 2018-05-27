@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br/>
 {% if form.errors %}
   <p>There were errors creating your account. Please try again.</p>
 {% endif %}
 <form action="{% url 'register_view' %}" method="POST">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" value="Signup" />
+  <input type="submit" value="Signup" class="btn btn-primary"/>
 </form>
 {% endblock body %}
 
