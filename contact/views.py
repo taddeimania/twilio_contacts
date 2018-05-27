@@ -1,5 +1,6 @@
-from django.shortcuts import render
+
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
 from .models import Contact
@@ -17,10 +18,14 @@ class IndexView(TemplateView):
         return context
 
 
-class ContactView(CreateView):
+class ContactCreateView(CreateView):
     form_class = ContactForm
     success_url = '/'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+
+class ContactDetailView(DetailView):
+    model = Contact
