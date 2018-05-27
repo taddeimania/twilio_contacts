@@ -17,3 +17,4 @@ services:
     environment:
       - TWILIO_SID
       - TWILIO_AUTH
+      - TWILIO_NUMBER

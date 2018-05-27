@@ -40,5 +40,7 @@ class MessageCreateView(CreateView):
     form_class = MessageForm
 
     def form_valid(self, form):
-        form.instance.contact = Contact.objects.get(id=self.request.POST.get('contact_id', None))
+        contact = Contact.objects.get(id=self.request.POST.get('contact_id', None))
+        form.instance.contact = contact
+        form.send_sms(contact)
         return super().form_valid(form)

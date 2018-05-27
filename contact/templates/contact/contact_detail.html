@@ -13,6 +13,10 @@
   <li>
     {{ message.body }} ( {{ message.created }} )
   </li>
+{% empty %}
+  <li>
+    No messages yet, you should send one
+  </li>
 {% endfor %}
 </ul>
 
