@@ -9,7 +9,7 @@ from .models import Contact, Message
 class ContactForm(ModelForm):
     class Meta:
         model = Contact
-        fields = ['name', 'number']
+        fields = ['first_name', 'last_name', 'number']
 
 
 class MessageForm(ModelForm):
